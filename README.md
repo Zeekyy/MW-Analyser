@@ -1,4 +1,12 @@
-﻿# Malware-Analyser
+# How to use it
+
+Easiest step: 
+git clone https://github.com/Zeekyy/MW-Analyser.git
+Lancer main.exe dans le répertoire dist
+ou 
+Lancer main.py avec python main.py
+
+ # Malware-Analyser
 
 L'application en python utilise l'API de VirusTotal pour analyser des fichiers et des répertoires entiers et permet de les supprimers ou non si elles sont flagué comme dangereuse en étant analyser par plus de 70 antivirus. 
 
