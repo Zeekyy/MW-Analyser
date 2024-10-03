@@ -1,0 +1,361 @@
+import shutil
+import tkinter as tk
+from tkinter import filedialog
+import requests
+import time
+import os
+from dotenv import load_dotenv
+import concurrent.futures 
+import datetime
+import logging
+from dotenv import load_dotenv
+from tqdm import tqdm
+
+
+
+
+load_dotenv()
+
+#API_KEY = os.getenv("API_KEY")  
+analysis_result = None  
+
+logging.basicConfig(
+    filename='app.log',      
+    level=logging.INFO,      
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+def check_api_key():
+    load_dotenv()
+
+    api_key = os.getenv("API_KEY")
+
+    if not api_key:
+        print("Aucune clé API trouvée.")
+        api_key = input("Veuillez entrer votre clé API VirusTotal : ")
+
+        with open(".env", "a") as env_file:
+            env_file.write(f"\nAPI_KEY={api_key}")
+
+        print("La clé API a été enregistrée.")
+    else:
+        print("Clé API trouvée.")
+
+    return api_key
+
+API_KEY = check_api_key()
+
+def menu():
+    global analysis_result  
+    global analysis_resultF
+
+    now = datetime.datetime.now()
+    date_time_str = now.strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f"rapport_{date_time_str}.txt"
+
+    while True:
+        print("")
+        print("1. Files Scanner")
+        print("2. Reportory Scanner")
+        print("3. Générer un rapport")
+        print("4. Quitter")
+        print("")
+
+        try:
+            choise = int(input("Que voulez-vous faire ? "))
+        except ValueError:
+            print("Veuillez entrer un nombre valide.")
+            continue
+
+        if choise == 1:
+            selection = files_select()
+            if selection:
+                analysis_result = files_scanner(selection)  
+                if analysis_result: 
+                    malware_rm(analysis_result, selection)
+        elif choise == 2:
+            selection = folder_select()
+            if selection:
+                analysis_resultF, filescan = scan_directory_multithread(selection)  
+                if analysis_resultF and len(analysis_resultF) > 0:
+                    for analysis, file_path in zip(analysis_resultF, filescan): 
+                        malware_rm(analysis, file_path)
+        elif choise == 3:
+            choise = input("Quelle résultat voulez-vous? (P pour un programme / R pour un répertoire)")
+            if choise == "P":
+                if analysis_result: 
+                    with open(filename, "w") as fichier:
+                        #generate_report(analysis_result)
+                        fichier.write(generate_report(analysis_result))
+                else:
+                    print("Aucune analyse disponible")
+            elif choise == "R":
+                if analysis_resultF and len(analysis_resultF) > 0:
+                    with open(filename, "w") as fichier:
+                        fichier.write(generate_reportF(analysis_resultF))
+                else:
+                    print("Aucune analyse disponible")
+            else:
+                print("Erreur veuillez entrer une lettre valide.")         
+        elif choise == 4:
+            quit()
+
+
+def files_select():
+    selection = None
+    selection = filedialog.askopenfilename(title="Sélectionner un fichier")
+
+    return selection  
+
+def folder_select():
+    selection = None
+    selection = filedialog.askdirectory(title="Sélectionner un répertoire")
+
+    return selection 
+
+def folder_scanner(file_path):
+    url = "https://www.virustotal.com/api/v3/files"
+    headers = {
+        "x-apikey": API_KEY
+    }
+
+    try:
+        with open(file_path, 'rb') as file_to_scan:
+            files = {'file': file_to_scan}
+            response = requests.post(url, headers=headers, files=files)
+
+        if response.status_code == 200:
+            result = response.json()
+            analysis_id = result['data']['id']
+            #print(f"Analyse soumise avec succès.")
+            logging.info( f"ID de l'analyse: " + analysis_id + "pour:" + file_path)
+
+            #time.sleep(120)
+
+            for _ in tqdm(range(120), desc="Waiting for analysis"):
+                time.sleep(1)  
+
+            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
+            response = requests.get(analysis_url, headers=headers)
+
+            if response.status_code == 200:
+                analysis_resultF = response.json()
+                print(f"Résultats complets récupérés avec succès.")
+                logging.info(f"Résultats complets pour: " + file_path + "récupérés avec succès")
+                #sys.stdout = open("logfile", "w")
+                #generate_report(analysis_resultF)
+                return analysis_resultF
+            
+            else:
+                print(f"Erreur lors de la récupération des résultats.")
+                logging.info(f"Erreur lors de la récupération des résultats pour: "+ file_path + response.status_code + response.text)
+        else:
+            print(f"Erreur lors de l'envoi du fichier: ")
+            logging.info(f"Erreur lors de l'envoi du fichier pour: "+ file_path + response.status_code + response.text)
+
+    except Exception as e:
+        print(f"Erreur lors de l'analyse.")
+        logging.info(f"Erreur lors de l'analyse: " + e)
+
+
+def files_scanner(file_path):
+    url = "https://www.virustotal.com/api/v3/files"
+    headers = {
+        "x-apikey": API_KEY
+    }
+
+    try:
+        with open(file_path, 'rb') as file:
+            files = {'file': file}
+            response = requests.post(url, headers=headers, files=files)
+
+        if response.status_code == 200:
+            result = response.json()
+            analysis_id = result['data']['id'] 
+            #print(f"Analyse soumise avec succès.")
+            logging.info("ID de l'analyse: " + analysis_id)
+
+            for _ in tqdm(range(40), desc="Waiting for analysis"):
+                time.sleep(1) 
+
+            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
+            response = requests.get(analysis_url, headers=headers)
+
+            if response.status_code == 200:
+                analysis_result = response.json()
+                logging.info("Résultats complets de l'analyse récupérés.")
+                return analysis_result 
+            else:
+                print(f"Erreur lors de la récupération des résultats.")
+                logging.info(f"Erreur lors de la récupération des résultats: " + response.status_code + response.text)
+                return None
+
+        else:
+            print("Erreur lors de l'envoi.")
+            logging.info(f"Erreur lors de l'envoi: " + response.status_code + response.text)
+            return None
+
+    except Exception as e:
+        print(f"Erreur lors de l'analyse.")
+        logging.info("Erreur los de l'analyse: " + e)
+        return None
+
+
+def generate_report(analysis_result):
+    rapport = []
+    
+    data = analysis_result.get('data', {})
+    attributes = data.get('attributes', {})
+    results = attributes.get('results', {})
+    file_info = analysis_result.get('meta', {}).get('file_info', {})
+    stats = attributes.get('stats', {})
+
+    rapport.append("="*70 + "\n")
+    rapport.append("Rapport d'analyse\n")
+    rapport.append("="*40 + "\n")
+    rapport.append(f"SHA-256 : {file_info.get('sha256', 'N/A')}\n")
+    rapport.append(f"MD5      : {file_info.get('md5', 'N/A')}\n")
+    rapport.append(f"SHA-1    : {file_info.get('sha1', 'N/A')}\n")
+    rapport.append(f"Taille   : {file_info.get('size', 'N/A')} octets\n")
+    rapport.append("="*40 + "\n")
+
+    rapport.append(f"\nSTATISTIQUES GLOBALES :\n")
+    rapport.append(f"Malicious  : {stats.get('malicious', 0)}\n")
+    rapport.append(f"Suspicious   : {stats.get('suspicious', 0)}\n")
+    rapport.append(f"Non détecté  : {stats.get('undetected', 0)}\n")
+    rapport.append(f"Harmless     : {stats.get('harmless', 0)}\n")
+    rapport.append(f"Timeout      : {stats.get('timeout', 0)}\n")
+    rapport.append(f"Non pris en charge : {stats.get('type-unsupported', 0)}\n")
+    rapport.append("="*40 + "\n")
+
+    rapport.append(f"\nDÉTAIL DES RÉSULTATS PAR MOTEUR ANTIVIRUS :\n")
+
+    for engine_name, engine_result in results.items():
+        category = engine_result.get('category', 'N/A')
+        result = engine_result.get('result', 'N/A')
+        version = engine_result.get('engine_version', 'N/A')
+        update = engine_result.get('engine_update', 'N/A')
+
+        rapport.append(f"Moteur : {engine_name}\n")
+        rapport.append(f"  - Version du moteur : {version}\n")
+        rapport.append(f"  - Mise à jour : {update}\n")
+        rapport.append(f"  - Catégorie : {category}\n")
+        rapport.append(f"  - Résultat : {result}\n")
+        rapport.append("-" * 40 + "\n")
+
+    rapport.append("\nFIN DU RAPPORT\n")
+    rapport.append("="*70 + "\n")
+    rapport.append("="*70 + "\n")
+    
+    return ''.join(rapport)
+
+
+def generate_reportF(analysis_resultF):
+    rapport = []
+    
+    for analysis_result in analysis_resultF:
+        data = analysis_result.get('data', {})
+        attributes = data.get('attributes', {})
+        results = attributes.get('results', {})
+        file_info = analysis_result.get('meta', {}).get('file_info', {})
+        stats = attributes.get('stats', {})
+
+        rapport.append("="*70 + "\n")
+        rapport.append("Rapport d'analyse\n")
+        rapport.append("="*40 + "\n")
+        rapport.append(f"SHA-256 : {file_info.get('sha256', 'N/A')}\n")
+        rapport.append(f"MD5      : {file_info.get('md5', 'N/A')}\n")
+        rapport.append(f"SHA-1    : {file_info.get('sha1', 'N/A')}\n")
+        rapport.append(f"Taille   : {file_info.get('size', 'N/A')} octets\n")
+        rapport.append("="*40 + "\n")
+
+        rapport.append(f"\nSTATISTIQUES GLOBALES :\n")
+        rapport.append(f"Malicious  : {stats.get('malicious', 0)}\n")
+        rapport.append(f"Suspicious   : {stats.get('suspicious', 0)}\n")
+        rapport.append(f"Non détecté  : {stats.get('undetected', 0)}\n")
+        rapport.append(f"Harmless     : {stats.get('harmless', 0)}\n")
+        rapport.append(f"Timeout      : {stats.get('timeout', 0)}\n")
+        rapport.append(f"Non pris en charge : {stats.get('type-unsupported', 0)}\n")
+        rapport.append("="*40 + "\n")
+
+        rapport.append(f"\nDÉTAIL DES RÉSULTATS PAR MOTEUR ANTIVIRUS :\n")
+
+        for engine_name, engine_result in results.items():
+            category = engine_result.get('category', 'N/A')
+            result = engine_result.get('result', 'N/A')
+            version = engine_result.get('engine_version', 'N/A')
+            update = engine_result.get('engine_update', 'N/A')
+
+            rapport.append(f"Moteur : {engine_name}\n")
+            rapport.append(f"  - Version du moteur : {version}\n")
+            rapport.append(f"  - Mise à jour : {update}\n")
+            rapport.append(f"  - Catégorie : {category}\n")
+            rapport.append(f"  - Résultat : {result}\n")
+            rapport.append("-" * 40 + "\n")
+
+    rapport.append("\nFIN DU RAPPORT\n")
+    rapport.append("="*70 + "\n")
+    rapport.append("="*70 + "\n")
+    
+    return ''.join(rapport)
+
+
+
+def scan_directory_multithread(directory_path):
+    filescan = []
+    results = []
+
+    for root, dirs, files in os.walk(directory_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            filescan.append(file_path)
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        for result in executor.map(folder_scanner, filescan):
+            if result:
+                results.append(result)
+
+    return results, filescan  
+    
+    analysis_resultF = results if results else None  
+
+
+    #with concurrent.futures.ThreadPoolExecutor() as executor:
+    #    list(tqdm(executor.map(folder_scanner, filescan), total=len(filescan), desc="Scanning Files"))
+    
+
+
+def malware_rm(analysis_result, file_path):
+    file_path = os.path.abspath(file_path)  
+    print(f"Chemin absolu du fichier ou répertoire : {file_path}")
+    dangerosity = 3
+    stats = analysis_result.get('data', {}).get('attributes', {}).get('stats', {})
+    dangerosity_count = stats.get('malicious', 0)
+
+    if dangerosity_count >= dangerosity:
+        print(f"L'application a été signalée comme malveillante par {dangerosity_count} antivirus.")
+        choix = input("Voulez-vous la supprimer ? (o/n) : ").lower()
+
+        if choix == 'o':
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path) 
+                    logging.info(f"Le fichier '{file_path}' a été supprimé.")
+                    print(f"L'application a été supprimée avec succès.")
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)  
+                    logging.info(f"Le répertoire '{file_path}' a été supprimé.")
+                    print(f"Le répertoire a été supprimé avec succès.")
+                else:
+                    print(f"Erreur ce n'est ni un fichier ni un répertoire valide.")
+            except Exception as e:
+                logging.error(f"Erreur lors de la suppression du fichier '{file_path}': {str(e)}")
+                print(f"Impossible de supprimer le fichier.")
+        else:
+            logging.info(f"L'utilisateur a choisi de ne pas supprimer le fichier '{file_path}'.")
+            print(f"Le fichier ne sera pas supprimé.")
+    else:
+        print("Le fichier n'a pas été détecté comme dangereux.")
+
+
+menu()

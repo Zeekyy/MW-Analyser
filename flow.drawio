@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="24.7.17">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1674" dy="1764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1390" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="trNry39F-ClmiWMacacH-7" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WIyWlLk6GJQsqaUBKTNV-3" target="trNry39F-ClmiWMacacH-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="Malware analyser" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="665" y="-910" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="NOw0sa7xMPXik98ew64j-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="NOw0sa7xMPXik98ew64j-0" target="NOw0sa7xMPXik98ew64j-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NOw0sa7xMPXik98ew64j-0" value="&amp;nbsp;menu" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="665" y="-700" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NOw0sa7xMPXik98ew64j-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="NOw0sa7xMPXik98ew64j-6" target="NOw0sa7xMPXik98ew64j-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YMNQO7177xUD0GHSoM81-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="NOw0sa7xMPXik98ew64j-6" target="YMNQO7177xUD0GHSoM81-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NOw0sa7xMPXik98ew64j-6" value="Select a Tools" style="rhombus;whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="677" y="-590" width="96" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZgBm8YfochR9lVJFsQsQ-4" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="NOw0sa7xMPXik98ew64j-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="339" y="-550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NOw0sa7xMPXik98ew64j-10" value="Folder Scanner" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="489" y="-580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZgBm8YfochR9lVJFsQsQ-0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="NOw0sa7xMPXik98ew64j-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="855" y="-470" as="sourcePoint" />
+            <mxPoint x="832" y="-420" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="725" y="-470" />
+              <mxPoint x="832" y="-470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-1" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="ZgBm8YfochR9lVJFsQsQ-2" target="mJzKnQremSpf45FRL3IS-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZgBm8YfochR9lVJFsQsQ-2" value="FIles scanner" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="773" y="-420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-4" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="ZgBm8YfochR9lVJFsQsQ-7" target="mJzKnQremSpf45FRL3IS-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZgBm8YfochR9lVJFsQsQ-7" value="Start Folder Scanner analyser" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="220" y="-580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZgBm8YfochR9lVJFsQsQ-18" value="Start Malware removal functions" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="220" y="-270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-5" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="trNry39F-ClmiWMacacH-2" target="trNry39F-ClmiWMacacH-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-2" value="Start files removals functions" style="whiteSpace=wrap;html=1;rounded=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="773" y="-190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-4" value="Start Malware removal functions" style="whiteSpace=wrap;html=1;rounded=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="773" y="-70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-8" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="trNry39F-ClmiWMacacH-6" target="NOw0sa7xMPXik98ew64j-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-12" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="trNry39F-ClmiWMacacH-6" target="trNry39F-ClmiWMacacH-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-6" value="Start function to check for API Keys" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="665" y="-830" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="trNry39F-ClmiWMacacH-11" value="Store it in env" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="905" y="-830" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YMNQO7177xUD0GHSoM81-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="YMNQO7177xUD0GHSoM81-0" target="YMNQO7177xUD0GHSoM81-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YMNQO7177xUD0GHSoM81-0" value="Generate report functions" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="841" y="-580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YMNQO7177xUD0GHSoM81-2" value="Start Report functions" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1041" y="-580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-2" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="mJzKnQremSpf45FRL3IS-0" target="trNry39F-ClmiWMacacH-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-0" value="Scanning file using VirusTotal" style="whiteSpace=wrap;html=1;rounded=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="773" y="-310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-5" value="" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="mJzKnQremSpf45FRL3IS-3" target="ZgBm8YfochR9lVJFsQsQ-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mJzKnQremSpf45FRL3IS-3" value="Scanning each folder using VirusTotal" style="whiteSpace=wrap;html=1;rounded=1;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="220" y="-400" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
