@@ -1,9 +1,11 @@
 # How to use it
 
-Easiest step: 
 git clone https://github.com/Zeekyy/MW-Analyser.git
+
 Lancer main.exe dans le répertoire dist
+
 ou 
+
 Lancer main.py avec python main.py
 
  # Malware-Analyser
