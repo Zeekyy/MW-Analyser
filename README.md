@@ -1,5 +1,9 @@
 # How to use it
 
+Installer les dépendances avec
+
+pip install -r requirements.txt
+
 git clone https://github.com/Zeekyy/MW-Analyser.git
 
 Lancer main.exe dans le répertoire dist
