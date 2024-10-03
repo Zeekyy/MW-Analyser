@@ -1,0 +1,479 @@
+======================================================================
+Rapport d'analyse
+========================================
+SHA-256 : 88384f143df60d5ae4a2fcee570d867754c292efd96f2bb90581e8af7ac6bb58
+MD5      : 2a6db6ab86ab610982ba517dfcc73d91
+SHA-1    : 06969d60c0c153f4a4cfcd32417d02498948c019
+Taille   : 430080 octets
+========================================
+
+STATISTIQUES GLOBALES :
+Malicious  : 63
+Suspicious   : 0
+Non détecté  : 9
+Harmless     : 0
+Timeout      : 0
+Non pris en charge : 4
+========================================
+
+DÉTAIL DES RÉSULTATS PAR MOTEUR ANTIVIRUS :
+Moteur : Bkav
+  - Version du moteur : 2.0.0.1
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : W32.AIDetectMalware
+----------------------------------------
+Moteur : Lionic
+  - Version du moteur : 8.16
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Win32.Wanna.toNH
+----------------------------------------
+Moteur : Elastic
+  - Version du moteur : 4.0.166
+  - Mise à jour : 20241001
+  - Catégorie : malicious
+  - Résultat : malicious (high confidence)
+----------------------------------------
+Moteur : MicroWorld-eScan
+  - Version du moteur : 14.0.409.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.GenericKD.38010809
+----------------------------------------
+Moteur : CTX
+  - Version du moteur : 2024.8.29.1
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : exe.trojan.generic
+----------------------------------------
+Moteur : CAT-QuickHeal
+  - Version du moteur : 22.00
+  - Mise à jour : 20241002
+  - Catégorie : malicious
+  - Résultat : Ransom.WannaCrypt.A4
+----------------------------------------
+Moteur : Skyhigh
+  - Version du moteur : v2021.2.0+4045
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : BehavesLike.Win32.PWSZbot.gc
+----------------------------------------
+Moteur : ALYac
+  - Version du moteur : 2.0.0.10
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Ransom.WannaCryptor
+----------------------------------------
+Moteur : Cylance
+  - Version du moteur : 3.0.0.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Unsafe
+----------------------------------------
+Moteur : Zillya
+  - Version du moteur : 2.0.0.5207
+  - Mise à jour : 20241002
+  - Catégorie : malicious
+  - Résultat : Trojan.Wanna.Win32.7
+----------------------------------------
+Moteur : CrowdStrike
+  - Version du moteur : 1.0
+  - Mise à jour : 20231026
+  - Catégorie : malicious
+  - Résultat : win/malicious_confidence_100% (W)
+----------------------------------------
+Moteur : Alibaba
+  - Version du moteur : 0.3.0.5
+  - Mise à jour : 20190527
+  - Catégorie : malicious
+  - Résultat : Ransom:Win32/Wanna.2d7ce09c
+----------------------------------------
+Moteur : K7GW
+  - Version du moteur : 12.191.53456
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan ( 0050e69d1 )
+----------------------------------------
+Moteur : K7AntiVirus
+  - Version du moteur : 12.191.53454
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan ( 0050e69d1 )
+----------------------------------------
+Moteur : Arcabit
+  - Version du moteur : 2022.0.0.18
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Generic.D243FFB9
+----------------------------------------
+Moteur : Baidu
+  - Version du moteur : 1.0.0.2
+  - Mise à jour : 20190318
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : VirIT
+  - Version du moteur : 9.5.801
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : Symantec
+  - Version du moteur : 1.22.0.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom.Wannacry
+----------------------------------------
+Moteur : tehtris
+  - Version du moteur : v0.1.4
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Generic.Malware
+----------------------------------------
+Moteur : ESET-NOD32
+  - Version du moteur : 29992
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : a variant of Win32/Pepex.M
+----------------------------------------
+Moteur : Zoner
+  - Version du moteur : 2.2.2.0
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : APEX
+  - Version du moteur : 6.581
+  - Mise à jour : 20241001
+  - Catégorie : malicious
+  - Résultat : Malicious
+----------------------------------------
+Moteur : Paloalto
+  - Version du moteur : 0.9.0.1003
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : generic.ml
+----------------------------------------
+Moteur : ClamAV
+  - Version du moteur : 1.4.1.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Win.Ransomware.Wannacryptor-6993233-1
+----------------------------------------
+Moteur : Kaspersky
+  - Version du moteur : 22.0.1.28
+  - Mise à jour : 20240917
+  - Catégorie : malicious
+  - Résultat : Trojan-Ransom.Win32.Wanna.z
+----------------------------------------
+Moteur : BitDefender
+  - Version du moteur : 7.2
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.GenericKD.38010809
+----------------------------------------
+Moteur : NANO-Antivirus
+  - Version du moteur : 1.0.146.25796
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Win32.Wanna.epfevo
+----------------------------------------
+Moteur : SUPERAntiSpyware
+  - Version du moteur : 5.6.0.1032
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Agent/Gen-Malagent
+----------------------------------------
+Moteur : Avast
+  - Version du moteur : 23.9.8494.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Win32:Malware-gen
+----------------------------------------
+Moteur : Tencent
+  - Version du moteur : 1.0.0.1
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Win32.WannaCry.k
+----------------------------------------
+Moteur : Emsisoft
+  - Version du moteur : 2024.1.0.53752
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.GenericKD.38010809 (B)
+----------------------------------------
+Moteur : F-Secure
+  - Version du moteur : 18.10.1547.307
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : DrWeb
+  - Version du moteur : 7.0.65.5230
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : WIN.WORM.Virus
+----------------------------------------
+Moteur : VIPRE
+  - Version du moteur : 6.0.0.35
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.GenericKD.38010809
+----------------------------------------
+Moteur : TrendMicro
+  - Version du moteur : 11.0.0.1006
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom_WCRY.SM4
+----------------------------------------
+Moteur : McAfeeD
+  - Version du moteur : 1.2.0.7977
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : SentinelOne
+  - Version du moteur : 24.2.1.1
+  - Mise à jour : 20240417
+  - Catégorie : malicious
+  - Résultat : Static AI - Malicious PE
+----------------------------------------
+Moteur : Trapmine
+  - Version du moteur : 4.0.16.213
+  - Mise à jour : 20240826
+  - Catégorie : malicious
+  - Résultat : malicious.high.ml.score
+----------------------------------------
+Moteur : CMC
+  - Version du moteur : 2.4.2022.1
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : Sophos
+  - Version du moteur : 2.5.5.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Mal/Wanna-A
+----------------------------------------
+Moteur : Ikarus
+  - Version du moteur : 6.3.23.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan-Ransom.WannaCry
+----------------------------------------
+Moteur : FireEye
+  - Version du moteur : 35.47.0.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Generic.mg.2a6db6ab86ab6109
+----------------------------------------
+Moteur : Jiangmin
+  - Version du moteur : 16.0.100
+  - Mise à jour : 20241002
+  - Catégorie : malicious
+  - Résultat : Trojan.WanaCry.ab
+----------------------------------------
+Moteur : Webroot
+  - Version du moteur : 1.0.0.403
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : W32.Trojan.Gen
+----------------------------------------
+Moteur : Google
+  - Version du moteur : 1727955046
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Detected
+----------------------------------------
+Moteur : Avira
+  - Version du moteur : 8.3.3.20
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : Varist
+  - Version du moteur : 6.6.1.3
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : W32/Trojan.WOGO-1674
+----------------------------------------
+Moteur : Antiy-AVL
+  - Version du moteur : 3.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan/Win32.BTSGeneric
+----------------------------------------
+Moteur : Kingsoft
+  - Version du moteur : None
+  - Mise à jour : 20240725
+  - Catégorie : malicious
+  - Résultat : malware.kb.a.1000
+----------------------------------------
+Moteur : Gridinsoft
+  - Version du moteur : 1.0.191.174
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom.Win32.Generic.oa!s1
+----------------------------------------
+Moteur : Xcitium
+  - Version du moteur : 37101
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Backdoor.Win32.Rbot.~gen@1xtqdu
+----------------------------------------
+Moteur : Microsoft
+  - Version du moteur : 1.1.24080.9
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom:Win32/WannaCrypt.DB!MTB
+----------------------------------------
+Moteur : ViRobot
+  - Version du moteur : 2014.3.20.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Win32.Z.Pepex.430080
+----------------------------------------
+Moteur : ZoneAlarm
+  - Version du moteur : 1.0
+  - Mise à jour : 20240917
+  - Catégorie : malicious
+  - Résultat : Trojan-Ransom.Win32.Wanna.z
+----------------------------------------
+Moteur : GData
+  - Version du moteur : A:25.38997B:27.37680
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.GenericKD.38010809
+----------------------------------------
+Moteur : Cynet
+  - Version du moteur : 4.0.1.1
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Malicious (score: 100)
+----------------------------------------
+Moteur : AhnLab-V3
+  - Version du moteur : 3.26.1.10507
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan/Win32.WannaCryptor.R200677
+----------------------------------------
+Moteur : Acronis
+  - Version du moteur : 1.2.0.121
+  - Mise à jour : 20240328
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : McAfee
+  - Version du moteur : 6.0.6.653
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom-WannaCry!2A6DB6AB86AB
+----------------------------------------
+Moteur : TACHYON
+  - Version du moteur : 2024-10-03.02
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom/W32.WannaCry.430080.B
+----------------------------------------
+Moteur : VBA32
+  - Version du moteur : 5.0.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : BScope.TrojanRansom.Wanna
+----------------------------------------
+Moteur : Malwarebytes
+  - Version du moteur : 4.5.5.54
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Generic.Malware.AI.DDS
+----------------------------------------
+Moteur : Panda
+  - Version du moteur : 4.6.4.2
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trj/Genetic.gen
+----------------------------------------
+Moteur : TrendMicro-HouseCall
+  - Version du moteur : 10.0.0.1040
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom_WCRY.SM4
+----------------------------------------
+Moteur : Rising
+  - Version du moteur : 25.0.0.28
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Ransom.WanaCrypt!1.AAF9 (CLASSIC)
+----------------------------------------
+Moteur : Yandex
+  - Version du moteur : 5.5.2.24
+  - Mise à jour : 20241003
+  - Catégorie : undetected
+  - Résultat : None
+----------------------------------------
+Moteur : huorong
+  - Version du moteur : b195c5e:b195c5e:4e20abc:4e20abc
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Worm/Pepex.a
+----------------------------------------
+Moteur : MaxSecure
+  - Version du moteur : 1.0.0.1
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Trojan.Malware.10843231.susgen
+----------------------------------------
+Moteur : Fortinet
+  - Version du moteur : None
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : W32/Ransom.86CD!tr.ransom
+----------------------------------------
+Moteur : AVG
+  - Version du moteur : 23.9.8494.0
+  - Mise à jour : 20241003
+  - Catégorie : malicious
+  - Résultat : Win32:Malware-gen
+----------------------------------------
+Moteur : DeepInstinct
+  - Version du moteur : 5.0.0.8
+  - Mise à jour : 20240926
+  - Catégorie : malicious
+  - Résultat : MALICIOUS
+----------------------------------------
+Moteur : alibabacloud
+  - Version du moteur : 2.2.0
+  - Mise à jour : 20240910
+  - Catégorie : malicious
+  - Résultat : RansomWare:Win/Wannacryptor
+----------------------------------------
+Moteur : Avast-Mobile
+  - Version du moteur : 241003-00
+  - Mise à jour : 20241003
+  - Catégorie : type-unsupported
+  - Résultat : None
+----------------------------------------
+Moteur : SymantecMobileInsight
+  - Version du moteur : 2.0
+  - Mise à jour : 20240103
+  - Catégorie : type-unsupported
+  - Résultat : None
+----------------------------------------
+Moteur : BitDefenderFalx
+  - Version du moteur : 2.0.936
+  - Mise à jour : 20240128
+  - Catégorie : type-unsupported
+  - Résultat : None
+----------------------------------------
+Moteur : Trustlook
+  - Version du moteur : 1.0
+  - Mise à jour : 20241003
+  - Catégorie : type-unsupported
+  - Résultat : None
+----------------------------------------
+
+FIN DU RAPPORT
+======================================================================
+======================================================================
