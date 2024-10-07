@@ -69,7 +69,7 @@ def menu():
             selection = files_select()
             if selection:
                 analysis_result = files_scanner(selection)  
-                if analysis_result: 
+                if analysis_result and len(analysis_result) > 0: 
                     malware_rm(analysis_result, selection)
         elif choise == 2:
             selection = folder_select()
@@ -79,43 +79,41 @@ def menu():
                     for analysis, file_path in zip(analysis_resultF, filescan): 
                         malware_rm(analysis, file_path)
         elif choise == 3:
-            choise = input("Quelle résultat voulez-vous? (P pour un programme / R pour un répertoire)")
+            choise = input("Which result would you like? (P for program / R for directory)")
             if choise == "P":
                 if analysis_result: 
                     with open(filename, "w") as fichier:
                         #generate_report(analysis_result)
                         fichier.write(generate_report(analysis_result))
                 else:
-                    print("Aucune analyse disponible")
+                    print("There is no available analysis.")
             elif choise == "R":
                 if analysis_resultF and len(analysis_resultF) > 0:
                     with open(filename, "w") as fichier:
                         fichier.write(generate_reportF(analysis_resultF))
                 else:
-                    print("Aucune analyse disponible")
+                    print("There is no available analysis.")
             else:
-                print("Erreur veuillez entrer une lettre valide.")         
+                print("Error, please enter a valid letter.")         
         elif choise == 4:
             quit()
 
 
 def files_select():
     selection = None
-    selection = filedialog.askopenfilename(title="Sélectionner un fichier")
+    selection = filedialog.askopenfilename(title="Select a program")
 
     return selection  
 
 def folder_select():
     selection = None
-    selection = filedialog.askdirectory(title="Sélectionner un répertoire")
+    selection = filedialog.askdirectory(title="Select a directory")
 
     return selection 
 
 def folder_scanner(file_path):
     url = "https://www.virustotal.com/api/v3/files"
-    headers = {
-        "x-apikey": API_KEY
-    }
+    headers = {"x-apikey": API_KEY}
 
     try:
         with open(file_path, 'rb') as file_to_scan:
@@ -125,35 +123,42 @@ def folder_scanner(file_path):
         if response.status_code == 200:
             result = response.json()
             analysis_id = result['data']['id']
-            #print(f"Analyse soumise avec succès.")
-            logging.info( f"ID de l'analyse: " + analysis_id + "pour:" + file_path)
+            logging.info( f"Analysis ID: " + analysis_id + "for:" + file_path)
 
-            #time.sleep(120)
+            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"            
 
-            for _ in tqdm(range(120), desc="Waiting for analysis"):
-                time.sleep(1)  
+            with tqdm(total=100, desc="Waiting for analysis...", colour="blue") as progress_bar:
+                analyse_complete = False
+                attempt = 0
 
-            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
-            response = requests.get(analysis_url, headers=headers)
+                while not analyse_complete:
+                    response = requests.get(analysis_url, headers=headers)
 
-            if response.status_code == 200:
-                analysis_resultF = response.json()
-                print(f"Résultats complets récupérés avec succès.")
-                logging.info(f"Résultats complets pour: " + file_path + "récupérés avec succès")
-                #sys.stdout = open("logfile", "w")
-                #generate_report(analysis_resultF)
-                return analysis_resultF
+                    if response.status_code == 200:
+                        analysis_resultF = response.json()
+
+                        status = analysis_resultF["data"]["attributes"]["status"]
+                        if status == "completed":
+                            analyse_complete = True
+                            print("")
+                            print(f"Complete results successfully retrieved.")
+                            logging.info(f"Complete results for: " + file_path + "successfully retrieved")
+                            return analysis_resultF
+
+                    attempt += 1
+                    progress_bar.update(1)
+                    time.sleep(5)
             
-            else:
-                print(f"Erreur lors de la récupération des résultats.")
-                logging.info(f"Erreur lors de la récupération des résultats pour: "+ file_path + response.status_code + response.text)
+            print(f"Erreur while retrieving result.")
+            logging.info(f"Erreur while retrieving result for: "+ file_path + response.status_code + response.text)
+
         else:
-            print(f"Erreur lors de l'envoi du fichier: ")
-            logging.info(f"Erreur lors de l'envoi du fichier pour: "+ file_path + response.status_code + response.text)
+            print(f"Error while sending files: ")
+            logging.info(f"Error while sending files for: "+ file_path + response.status_code + response.text)
 
     except Exception as e:
-        print(f"Erreur lors de l'analyse.")
-        logging.info(f"Erreur lors de l'analyse: " + e)
+        print(f"Error while analysing")
+        logging.info(f"Error while analysing: " + e)
 
 
 def files_scanner(file_path):
@@ -173,30 +178,40 @@ def files_scanner(file_path):
             #print(f"Analyse soumise avec succès.")
             logging.info("ID de l'analyse: " + analysis_id)
 
-            for _ in tqdm(range(40), desc="Waiting for analysis"):
-                time.sleep(1) 
+            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"            
 
-            analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
-            response = requests.get(analysis_url, headers=headers)
+            with tqdm(total=100, desc="Waiting for analysis...", colour="blue") as progress_bar:
+                analyse_complete = False
+                attempt = 0
 
-            if response.status_code == 200:
-                analysis_result = response.json()
-                logging.info("Résultats complets de l'analyse récupérés.")
-                return analysis_result 
-            else:
-                print(f"Erreur lors de la récupération des résultats.")
-                logging.info(f"Erreur lors de la récupération des résultats: " + response.status_code + response.text)
-                return None
+                while not analyse_complete:
+                    response = requests.get(analysis_url, headers=headers)
+
+                    if response.status_code == 200:
+                        analysis_result = response.json()
+
+                        status = analysis_result["data"]["attributes"]["status"]
+                        if status == "completed":
+                            analyse_complete = True
+                            print("")
+                            print(f"Complete results successfully retrieved.")
+                            logging.info(f"Complete results for: " + file_path + "successfully retrieved")
+                            return analysis_result
+
+                    attempt += 1
+                    progress_bar.update(1)
+                    time.sleep(5)
+            
+            print(f"Erreur while retrieving result.")
+            logging.info(f"Erreur while retrieving result for: "+ file_path + response.status_code + response.text)
 
         else:
-            print("Erreur lors de l'envoi.")
-            logging.info(f"Erreur lors de l'envoi: " + response.status_code + response.text)
-            return None
+            print(f"Error while sending files: ")
+            logging.info(f"Error while sending files for: "+ file_path + response.status_code + response.text)
 
     except Exception as e:
-        print(f"Erreur lors de l'analyse.")
-        logging.info("Erreur los de l'analyse: " + e)
-        return None
+        print(f"Error while analysing")
+        logging.info(f"Error while analysing: " + e)
 
 
 def generate_report(analysis_result):
