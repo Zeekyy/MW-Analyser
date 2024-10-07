@@ -15,9 +15,9 @@ from tqdm import tqdm
 
 
 load_dotenv()
-
 #API_KEY = os.getenv("API_KEY")  
 analysis_result = None  
+analysis_resultF = None
 
 logging.basicConfig(
     filename='app.log',      
@@ -30,41 +30,39 @@ def check_api_key():
 
     api_key = os.getenv("API_KEY")
 
-    if not api_key:
-        print("Aucune clé API trouvée.")
-        api_key = input("Veuillez entrer votre clé API VirusTotal : ")
+    if not api_key or len(api_key) != 64:
+        while not api_key or len(api_key) != 64:
+            api_key = input("API Keys not found.Please enter your VirusTotal API Keys: ")
 
-        with open(".env", "a") as env_file:
-            env_file.write(f"\nAPI_KEY={api_key}")
-
-        print("La clé API a été enregistrée.")
+        if len(api_key) == 64:
+            with open(".env", "a") as env_file:
+                env_file.write(f"\nAPI_KEY={api_key}")
+            print("API keys saved :)")
     else:
-        print("Clé API trouvée.")
+        print("API keys found.")
 
     return api_key
 
 API_KEY = check_api_key()
 
 def menu():
-    global analysis_result  
-    global analysis_resultF
 
     now = datetime.datetime.now()
     date_time_str = now.strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"rapport_{date_time_str}.txt"
+    filename = f"report_{date_time_str}.txt"
 
     while True:
         print("")
         print("1. Files Scanner")
         print("2. Reportory Scanner")
-        print("3. Générer un rapport")
-        print("4. Quitter")
+        print("3. Get a report")
+        print("4. Exit")
         print("")
 
         try:
-            choise = int(input("Que voulez-vous faire ? "))
+            choise = int(input("What would you like to do? "))
         except ValueError:
-            print("Veuillez entrer un nombre valide.")
+            print("Please enter a valid number.")
             continue
 
         if choise == 1:
