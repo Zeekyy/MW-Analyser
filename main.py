@@ -9,7 +9,10 @@ import concurrent.futures
 import datetime
 import logging
 from dotenv import load_dotenv
-from tqdm import tqdm
+#from tqdm import tqdm
+from halo import Halo
+from colorama import Fore, Style, init
+init(autoreset=True)
 
 
 
@@ -41,6 +44,7 @@ analysis_resultF = None
 API_KEY = check_api_key()
 url = "https://www.virustotal.com/api/v3/files"
 headers = {"x-apikey": API_KEY}
+
 
 
 logging.basicConfig(
@@ -90,8 +94,9 @@ def menu():
             if choise == "P":
                 if analysis_result: 
                     with open(filename, "w") as fichier:
-                        #generate_report(analysis_result)
-                        fichier.write(generate_report(analysis_result))
+                        generate_report(analysis_result)
+                        #fichier.write(generate_report(analysis_result))
+                        #print(generate_report(analysis_result))
                 else:
                     print("There is no available analysis.")
             elif choise == "R":
@@ -128,42 +133,43 @@ def folder_scanner(file_path):
         if response.status_code == 200:
             result = response.json()
             analysis_id = result['data']['id']
-            logging.info( f"Analysis ID: " + analysis_id + "for:" + file_path)
+            logging.info(f"Analysis ID: " + analysis_id + " for: " + file_path)
 
             analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"            
 
-            with tqdm(total=100, desc="Waiting for analysis...", colour="blue") as progress_bar:
-                analyse_complete = False
-                attempt = 0
+            spinner = Halo(text='Waiting for analysis...', spinner='dots', color='blue')
+            spinner.start()
 
-                while not analyse_complete:
-                    response = requests.get(analysis_url, headers=headers)
+            analyse_complete = False
+            attempt = 0
 
-                    if response.status_code == 200:
-                        analysis_resultF = response.json()
+            while not analyse_complete:
+                response = requests.get(analysis_url, headers=headers)
 
-                        status = analysis_resultF["data"]["attributes"]["status"]
-                        if status == "completed":
-                            analyse_complete = True
-                            print("")
-                            print(f"Complete results successfully retrieved.")
-                            logging.info(f"Complete results for: " + file_path + "successfully retrieved")
-                            return analysis_resultF
+                if response.status_code == 200:
+                    analysis_resultF = response.json()
 
-                    attempt += 1
-                    progress_bar.update(1)
-                    time.sleep(2)
-            
-            print(f"Erreur while retrieving result.")
-            logging.info(f"Erreur while retrieving result for: "+ file_path + response.status_code + response.text)
+                    status = analysis_resultF["data"]["attributes"]["status"]
+                    if status == "completed":
+                        analyse_complete = True
+                        spinner.succeed('Complete results successfully retrieved.')
+                        logging.info(f"Complete results for: " + file_path + " successfully retrieved")
+                        return analysis_resultF
+
+                attempt += 1
+                time.sleep(2)
+
+            spinner.fail('Error while retrieving result.')
+            logging.info(f"Error while retrieving result for: " + file_path + response.status_code + response.text)
 
         else:
             print(f"Error while sending files: ")
-            logging.info(f"Error while sending files for: "+ file_path + response.status_code + response.text)
+            logging.info(f"Error while sending files for: " + file_path + response.status_code + response.text)
 
     except Exception as e:
         print(f"Error while analysing")
-        logging.info(f"Error while analysing: " + e)
+        logging.info(f"Error while analysing: " + str(e))
+
 
 
 def files_scanner(file_path):
@@ -180,30 +186,30 @@ def files_scanner(file_path):
 
             analysis_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"            
 
-            with tqdm(total=100, desc="Waiting for analysis...", colour="blue") as progress_bar:
-                analyse_complete = False
-                attempt = 0
+            spinner = Halo(text='Waiting for analysis...', spinner='dots', color='blue')
+            spinner.start()
 
-                while not analyse_complete:
-                    response = requests.get(analysis_url, headers=headers)
+            analyse_complete = False
+            attempt = 0
 
-                    if response.status_code == 200:
-                        analysis_result = response.json()
+            while not analyse_complete:
+                response = requests.get(analysis_url, headers=headers)
 
-                        status = analysis_result["data"]["attributes"]["status"]
-                        if status == "completed":
-                            analyse_complete = True
-                            print("")
-                            print(f"Complete results successfully retrieved.")
-                            logging.info(f"Complete results for: " + file_path + "successfully retrieved")
-                            return analysis_result
+                if response.status_code == 200:
+                    analysis_result = response.json()
 
-                    attempt += 1
-                    progress_bar.update(1)
-                    time.sleep(2)
+                    status = analysis_result["data"]["attributes"]["status"]
+                    if status == "completed":
+                        analyse_complete = True
+                        spinner.succeed('Complete results successfully retrieved.')
+                        logging.info(f"Complete results for: " + file_path + " successfully retrieved")
+                        return analysis_result
+
+                attempt += 1
+                time.sleep(2)
             
-            print(f"Erreur while retrieving result.")
-            logging.info(f"Erreur while retrieving result for: "+ file_path + response.status_code + response.text)
+            spinner.fail('Error while retrieving result.')
+            logging.info(f"Error while retrieving result for: " + file_path + response.status_code + response.text)
 
         else:
             print(f"Error while sending files: ")
@@ -211,58 +217,97 @@ def files_scanner(file_path):
 
     except Exception as e:
         print(f"Error while analysing")
-        logging.info(f"Error while analysing: " + e)
+        logging.info(f"Error while analysing: " + str(e))
 
+
+# def generate_report(analysis_result):
+#     rapport = []
+    
+#     data = analysis_result.get('data', {})
+#     attributes = data.get('attributes', {})
+#     results = attributes.get('results', {})
+#     file_info = analysis_result.get('meta', {}).get('file_info', {})
+#     stats = attributes.get('stats', {})
+
+#     rapport.append("="*70 + "\n")
+#     rapport.append("Analysis Report\n")
+#     rapport.append("="*40 + "\n")
+#     rapport.append(f"SHA-256 : {file_info.get('sha256', 'N/A')}\n")
+#     rapport.append(f"MD5      : {file_info.get('md5', 'N/A')}\n")
+#     rapport.append(f"SHA-1    : {file_info.get('sha1', 'N/A')}\n")
+#     rapport.append(f"Taille   : {file_info.get('size', 'N/A')} octets\n")
+#     rapport.append("="*40 + "\n")
+
+#     rapport.append(f"\nGlobal Stats :\n")
+#     rapport.append("="*40 + "\n")
+#     rapport.append(f"Malicious  : {stats.get('malicious', 0)}\n")
+#     rapport.append(f"Suspicious   : {stats.get('suspicious', 0)}\n")
+#     rapport.append(f"Undetected : {stats.get('undetected', 0)}\n")
+#     rapport.append(f"Harmless     : {stats.get('harmless', 0)}\n")
+#     rapport.append(f"Timeout      : {stats.get('timeout', 0)}\n")
+#     rapport.append(f"Unsupported : {stats.get('type-unsupported', 0)}\n")
+#     rapport.append("="*40 + "\n")
+
+#     rapport.append(f"\nResult details by Antivirus:\n")
+
+#     for engine_name, engine_result in results.items():
+#         category = engine_result.get('category', 'N/A')
+#         result = engine_result.get('result', 'N/A')
+#         version = engine_result.get('engine_version', 'N/A')
+#         update = engine_result.get('engine_update', 'N/A')
+
+#         rapport.append(f"Moteur : {engine_name}\n")
+#         #rapport.append(f"  - Antivirus Version : {version}\n")
+#         #rapport.append(f"  - Update : {update}\n")
+#         #rapport.append(f"  - Class : {category}\n")
+#         #rapport.append(f"  - Result : {result}\n")
+#         rapport.append("-" * 40 + "\n")
+
+#     rapport.append("\nEnd of the Report\n")
+#     rapport.append("="*70 + "\n")
+#     rapport.append("="*70 + "\n")
+    
+#     return ''.join(rapport)
 
 def generate_report(analysis_result):
     rapport = []
-    
+
     data = analysis_result.get('data', {})
     attributes = data.get('attributes', {})
     results = attributes.get('results', {})
     file_info = analysis_result.get('meta', {}).get('file_info', {})
     stats = attributes.get('stats', {})
 
-    rapport.append("="*70 + "\n")
-    rapport.append("Analysis Report\n")
-    rapport.append("="*40 + "\n")
-    rapport.append(f"SHA-256 : {file_info.get('sha256', 'N/A')}\n")
-    rapport.append(f"MD5      : {file_info.get('md5', 'N/A')}\n")
-    rapport.append(f"SHA-1    : {file_info.get('sha1', 'N/A')}\n")
-    rapport.append(f"Taille   : {file_info.get('size', 'N/A')} octets\n")
-    rapport.append("="*40 + "\n")
+    # Fonction pour ajouter une ligne formatée avec deux colonnes
+    def add_row(left_col, right_col, left_color=Fore.WHITE, right_color=Fore.WHITE):
+        # Gestion des valeurs None
+        left_col = f"{left_color}{left_col or 'N/A': <20}{Style.RESET_ALL}"  # Colonne gauche avec largeur fixe de 20
+        right_col = f"{right_color}{right_col or 'N/A': <20}{Style.RESET_ALL}"  # Colonne droite avec largeur fixe de 20
+        rapport.append(f"{left_col} | {right_col}")
 
-    rapport.append(f"\nGlobal Stats :\n")
-    rapport.append("="*40 + "\n")
-    rapport.append(f"Malicious  : {stats.get('malicious', 0)}\n")
-    rapport.append(f"Suspicious   : {stats.get('suspicious', 0)}\n")
-    rapport.append(f"Undetected : {stats.get('undetected', 0)}\n")
-    rapport.append(f"Harmless     : {stats.get('harmless', 0)}\n")
-    rapport.append(f"Timeout      : {stats.get('timeout', 0)}\n")
-    rapport.append(f"Unsupported : {stats.get('type-unsupported', 0)}\n")
-    rapport.append("="*40 + "\n")
+    # Bordure haute du tableau
+    rapport.append("+" + "-" * 43 + "+")
 
-    rapport.append(f"\nResult details by Antivirus:\n")
+    # En-tête
+    add_row("Moteur", "Result", Fore.GREEN, Fore.GREEN)
+    rapport.append("+" + "-" * 43 + "+")
 
+    # Extraction des résultats réels
     for engine_name, engine_result in results.items():
         category = engine_result.get('category', 'N/A')
         result = engine_result.get('result', 'N/A')
         version = engine_result.get('engine_version', 'N/A')
         update = engine_result.get('engine_update', 'N/A')
 
-        rapport.append(f"Moteur : {engine_name}\n")
-        #rapport.append(f"  - Antivirus Version : {version}\n")
-        #rapport.append(f"  - Update : {update}\n")
-        rapport.append(f"  - Class : {category}\n")
-        rapport.append(f"  - Result : {result}\n")
-        rapport.append("-" * 40 + "\n")
+        # Ajout des données dans le tableau
+        add_row(engine_name, result, Fore.CYAN, Fore.YELLOW)
 
-    rapport.append("\nEnd of the Report\n")
-    rapport.append("="*70 + "\n")
-    rapport.append("="*70 + "\n")
-    
-    return ''.join(rapport)
+    # Bordure basse du tableau
+    rapport.append("+" + "-" * 43 + "+")
 
+    #return "\n".join(rapport)
+
+    #print(generate_report({}))
 
 def generate_reportF(analysis_resultF):
     rapport = []
